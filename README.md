@@ -1,2 +1,26 @@
 # virtual-fly-brain-puppy
-Complete fruit fly brain connectome simulation running in a cute 3D puppy avatar. Full academic version with 3000+ neurons and real-time neural simulation.
+
+Windows용 독립 실행형(패키징 지원) **가상 초파리 뇌 강아지 시뮬레이터**입니다.
+
+## 포함된 기능
+- 3000+ 뉴런 / 548,000+ 시냅스 규모의 connectome 시뮬레이션 코어
+- FlyEM/malecns 형식 CSV 자동 로드 (`data/malecns_connectome.csv`)
+- PyQt5 GUI: 재생/일시정지, 속도 슬라이더, 연결망 복잡도 설정
+- 3D 강아지 아바타 + 환경(장애물/먹이/빛) + 행동 로그
+- 실시간 신경활동(칼슘) 히트맵 시각화
+- Windows 배포 파일: PyInstaller spec + Inno Setup 스크립트
+- 한글 사용자 매뉴얼: `docs/사용자_매뉴얼_ko.md`
+
+## 실행 (개발 환경)
+```bash
+pip install -r requirements.txt
+python main.py
+```
+
+## Windows .exe 빌드
+1. `build_windows.bat` 실행
+2. `installer.iss`를 Inno Setup에서 빌드하여 설치 프로그램 생성
+
+## Connectome 데이터 준비
+실제 데이터 사용 시 `data/malecns_connectome.csv`를 배치하세요.
+필수 컬럼은 `data/connectome_source_note.txt`를 참고하세요.
