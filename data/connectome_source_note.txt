@@ -1,0 +1,5 @@
+FlyEM/malecns connectome CSV를 data/malecns_connectome.csv 로 배치하면 자동 로드됩니다.
+필수 컬럼:
+pre_neuron,post_neuron,weight,pre_neuropil,post_neuropil
+
+파일이 없으면 앱은 3001 뉴런/548000 시냅스 크기의 참조 연결망을 생성해 학습/시연 모드를 실행합니다.
