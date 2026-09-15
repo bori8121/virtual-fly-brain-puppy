@@ -1,9 +1,14 @@
+#ifndef AppVersion
+  #define AppVersion "1.0.0"
+#endif
+#define AppName "Virtual Fly Brain Puppy"
+
 [Setup]
-AppName=Virtual Fly Brain Puppy
-AppVersion=1.0
+AppName={#AppName}
+AppVersion={#AppVersion}
 DefaultDirName={autopf}\VirtualFlyBrainPuppy
 DefaultGroupName=VirtualFlyBrainPuppy
-OutputBaseFilename=VirtualFlyBrainPuppyInstaller
+OutputBaseFilename=VirtualFlyBrainPuppyInstaller_{#AppVersion}
 Compression=lzma
 SolidCompression=yes
 
