@@ -37,7 +37,18 @@ jobs:
 
       - name: Build standalone exe with PyInstaller
         shell: pwsh
-        run: pyinstaller --clean virtual_fly_brain_puppy.spec
+        run: |
+          pyinstaller --clean virtual_fly_brain_puppy.spec
+          if (-not (Test-Path "dist\VirtualFlyBrainPuppy")) {
+            Write-Error "PyInstaller output directory not found!"
+            exit 1
+          }
+
+      - name: Check build output
+        shell: pwsh
+        run: |
+          Write-Host "Contents of dist directory:"
+          Get-ChildItem -Path "dist" -Recurse | Select-Object FullName
 
       - name: Install Inno Setup
         shell: pwsh
