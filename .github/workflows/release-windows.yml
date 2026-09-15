@@ -1,0 +1,64 @@
+name: Build and Release Windows Installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "릴리스 버전 (예: 1.0.0)"
+        required: true
+        default: "1.0.0"
+      prerelease:
+        description: "프리릴리스 여부"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build standalone exe with PyInstaller
+        shell: pwsh
+        run: pyinstaller --clean virtual_fly_brain_puppy.spec
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+
+      - name: Build installer with Inno Setup
+        shell: pwsh
+        run: |
+          iscc /DAppVersion=${{ inputs.version }} installer.iss
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: VirtualFlyBrainPuppyInstaller_${{ inputs.version }}
+          path: Output/VirtualFlyBrainPuppyInstaller_${{ inputs.version }}.exe
+
+      - name: Create GitHub Release with installer
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          name: v${{ inputs.version }} - Virtual Fly Brain Puppy
+          body_path: docs/release_notes_ko.md
+          files: Output/VirtualFlyBrainPuppyInstaller_${{ inputs.version }}.exe
+          prerelease: ${{ inputs.prerelease }}
