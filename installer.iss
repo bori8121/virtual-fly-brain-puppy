@@ -13,7 +13,7 @@ Compression=lzma
 SolidCompression=yes
 
 [Files]
-Source: "dist\\VirtualFlyBrainPuppy\\*"; DestDir: "{app}"; Flags: recursesubdirs
+Source: "dist\\VirtualFlyBrainPuppy.exe"; DestDir: "{app}"
 Source: "docs\\사용자_매뉴얼_ko.md"; DestDir: "{app}\\docs"
 
 [Icons]

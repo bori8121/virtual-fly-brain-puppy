@@ -39,8 +39,8 @@ jobs:
         shell: pwsh
         run: |
           pyinstaller --clean virtual_fly_brain_puppy.spec
-          if (-not (Test-Path "dist\VirtualFlyBrainPuppy")) {
-            Write-Error "PyInstaller output directory not found!"
+          if (-not (Test-Path "dist\VirtualFlyBrainPuppy.exe")) {
+            Write-Error "PyInstaller executable not found!"
             exit 1
           }
 
